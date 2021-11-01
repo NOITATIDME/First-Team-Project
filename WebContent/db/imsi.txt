@@ -1,0 +1,142 @@
+<table class="table table-hover" style="width: 100%;" id="commenttable">
+  		<thead>
+  		</thead>
+  		<tbody>
+  		<c:choose>
+   			<c:when test="${ commentList != null }">
+      		<c:forEach var="comment" items="${ commentList }"  >
+  	       				<tr class="table-active">
+			      			<th scope="row" class="commentwriter">${ comment.comment_writer }</th>
+			      			<td class="left_cont" style="padding-left:${ comment.comment_lvl * 30 + 10 }px;">
+				  			<c:choose>
+				    		<%-- 새글 부분 --%>
+								<c:when test="${ comment.comment_lvl eq 0 }">   
+					 			<c:choose>
+									<c:when test="${  comment.comment_delnum eq 0 }">
+						 				${ comment.comment_cont }
+									</c:when>
+								<c:otherwise>	         
+						  			<s>삭제된 글입니다</s>
+								</c:otherwise>
+					  			</c:choose>
+								</c:when>
+			    
+							<%-- 답글 부분 --%>
+					    		<c:otherwise>
+						  			<c:choose>
+						    			<c:when test="${ comment.comment_delnum eq 0 }">
+							  				[Re] ${ comment.comment_cont }
+						    			</c:when>
+					       			<c:otherwise>	          
+						      			[Re] <s>삭제된 글입니다</s>
+					        		</c:otherwise>
+						  			</c:choose>          
+					    		</c:otherwise>         
+				  			</c:choose>  
+			      			</td>
+			      			<td class="commentregdate">${ comment.comment_regdate }</td>
+			      			<c:if test="${ comment.comment_delnum < 1 }">
+			      				<td>
+								    <form action="/board?cmd=WRITECOMMENT" method="POST">
+										<input type="hidden" name="idx" value="${boardVo.idx }" />
+										<input type="hidden" name="menu_id" value="${boardVo.menu_id }" />
+										<input type="hidden" name="comment_hboard" value="${boardVo.idx }" />
+										<input type="hidden" name="comment_writer" value="${ loginid }" />
+										<input type="hidden" name="comment_cont" />
+										<input type="hidden" name="comment_bnum" value="${comment.comment_bnum}" />
+										<input type="hidden" name="comment_lvl" value="${comment.comment_lvl}" />
+									    <input type="hidden" name="comment_step" value="${comment.comment_step}" />
+									    <input type="hidden" name="comment_nref" value="${comment.comment_nref}" />
+									    <input type="hidden" name="nowpage" value="${ nowpage }" />
+									    <input type="hidden" name="pagecount" value="${ pagecount }" />
+									    <input type="submit" value="대댓글등록" class="boardwriteCmtCmt" />
+							        </form>
+			     				</td>
+								<c:if test="${ loginid == comment.comment_writer }">
+									<td>
+										<form action="/board?cmd=UPDATECOMMENTFORM" method="POST">
+											<input type="hidden" name="comment_idx" value="${ comment.comment_idx }" />
+											<input type="hidden" name="menu_id" value="${ boardVo.menu_id }" />
+											<input type="hidden" name="nowpage" value="${ nowpage }" />
+											<input type="hidden" name="pagecount" value="${ pagecount }" />
+											<input type="submit" class="boardcommentupdatebutton" value="수정하기" />
+										</form>
+									</td>
+									<td>
+										<form action="/board?cmd=DELETECOMMENT" method="POST">
+											<input type="hidden" name="comment_idx" value="${ comment.comment_idx }" />
+											<input type="hidden" name="idx" value="${ boardVo.idx }" />
+											<input type="hidden" name="menu_id" value="${ boardVo.menu_id }" />
+											<input type="hidden" name="nowpage" value="${ nowpage }" />
+											<input type="hidden" name="pagecount" value="${ pagecount }" />
+											<input type="submit" class="boardcommentdeletebutton" value="삭제하기">
+										</form>
+									</td> 
+								</c:if>  
+							</c:if> 
+ 						</tr> 
+			</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<p>댓글이 존재하지 않습니다</p>
+			</c:otherwise>
+		</c:choose>
+			</tbody>
+		</table>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- /board?cmd=WRITECOMMENTFORM -->
+		<!-- 로그인 했을 경우에만 댓글 작성 가능 -->
+		<form action="/board?cmd=ADDCOMMENT" method="POST" id="addComment">
+			<c:if test="${ loginid != null }" >
+				<tr bgcolor="#F5F5F5">
+				<!-- 아이디 -->
+					<td width="150">
+						<div>${ loginid }</div>
+					</td>
+				<!-- 본문작성 -->
+					<td width="700">
+						<div>
+							<textarea id="input_comment_cont" name="comment_cont" rows="3" cols="117"></textarea>
+						</div>
+					</td>
+				<!-- 댓글 등록 버튼 -->
+					<td width="100">
+						<input type="hidden" name="idx" value="${boardVo.idx }" />
+						<input type="hidden" name="menu_id" value="${boardVo.menu_id }" />
+						<input type="hidden" name="comment_hboard" value="${boardVo.idx }" />
+						<input type="hidden" name="comment_writer" value="${ loginid }" />
+						<input type="hidden" name="comment_bnum" value="0" />
+						<input type="hidden" name="comment_lvl" value="0" />
+					    <input type="hidden" name="comment_step" value="0" />
+					    <input type="hidden" name="comment_nref" value="0" />
+					    <input type="hidden" name="nowpage" value="${ nowpage }" />
+					    <input type="hidden" name="pagecount" value="${ pagecount }" />
+						<div id="btn1" style="text-align: center;">
+						<p><input type="submit" value="댓글등록" id="boardwriteCmt" /></p>
+						</div>
+					</td>
+				</tr>
+			</c:if>
+		</form>
+		</div>
+		<c:if test="${ loginid == boardVo.writer }">
+			<button id="boardupdatebutton">수정하기</button>
+			<button id="boarddeletebutton">삭제하기</button>
+		</c:if> 
+	</div>

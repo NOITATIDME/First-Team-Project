@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+body {
+    background: url('/images/surveyform.png') no-repeat fixed center center;
+    background-size: cover;
+    font-family: Montserrat;
+}
+#subbtn {
+    width: 150px;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Yeon Sung', cursive;
+    outline: none;
+    cursor: pointer;
+    padding: 0px;
+}
+
+#subbtn:hover {
+    background: #ff7b81;
+}
+
+div {
+	float: right;
+	padding: 0px;
+	width: 70%;
+	height: 70%;
+	
+}
+
+h1 {
+	font-family: 'Yeon Sung', cursive;
+	font-size: 60px
+}
+
+label {
+	font-family: 'Yeon Sung', cursive;
+	font-size: 25px;
+}

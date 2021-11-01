@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+body {
+    background: url('https://wallpapercave.com/wp/gI4wXKN.jpg') no-repeat fixed center;
+    background-size: cover;
+    font-family: Montserrat;
+	}
+
+a {
+  text-align: left;
+  display: block;
+  top: 200px;
+  padding: 65px;
+  position: relative;
+  text-decoration: none;
+  color: black;
+}
+

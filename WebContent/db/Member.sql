@@ -1,0 +1,19 @@
+-- 회원정보 테이블 생성 ( 테이블 명 : CLIENTINFO )
+CREATE TABLE CLIENTINFO
+(
+    CID     VARCHAR2(10)    PRIMARY KEY, 
+
+    CPWD    VARCHAR2(10)    NOT NULL,
+
+    CBIRTH  NUMBER(8)       NOT NULL,
+
+    CNAME   VARCHAR2(10)    NOT NULL,
+ 
+    CEMAIL  VARCHAR2(20)    UNIQUE,
+
+    CRESULT VARCHAR2(20)    NULL,
+
+    RESDAY  DATE            
+);
+
+COMMIT;

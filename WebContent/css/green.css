@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+
+
+.grin {
+	background: url('https://www.ringmybarber.com/wp-content/uploads/2020/06/barbershop-tools.jpg') no-repeat fixed center;
+    background-size:contain;
+    font-family: Montserrat;
+	object-fit: cotain;
+	height : 800px;
+	width  : 100%; 
+	background-color : black;
+	
+}
+
+a{
+  text-align: right	;
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: black;
+}
